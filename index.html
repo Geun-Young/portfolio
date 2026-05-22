@@ -651,31 +651,78 @@
     }
 
     /* ── RESPONSIVE ── */
+    /* ── MOBILE ── */
     @media (max-width: 768px) {
-      nav { padding: 0 24px; }
+      /* 공통 */
+      section { padding: 80px 24px; }
+      * { word-break: keep-all; }
+
+      /* Nav */
+      nav { padding: 0 20px; }
+      .nav-logo { font-size: 16px; }
       .nav-links { display: none; }
 
-      section { padding: 80px 24px; }
-
+      /* Hero */
       #hero { padding: 100px 24px 64px; }
 
-      .hero-stats { gap: 28px; }
-      .stat-num { font-size: 28px; }
+      .hero-title { font-size: clamp(24px, 6vw, 36px); }
 
-      .exp-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-sub { font-size: 15px; }
 
-      .skills-grid { grid-template-columns: 1fr 1fr; }
-
-      .accordion-body-inner {
-        grid-template-columns: 1fr;
-        padding: 20px 0 28px;
+      .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
       }
+      .hero-cta .btn-primary,
+      .hero-cta .btn-outline { width: 100%; }
 
+      .hero-profile {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px 0;
+      }
+      .profile-item {
+        border-right: none;
+        padding: 0 16px;
+      }
+      .profile-item:nth-child(odd)  { padding-left: 0; }
+      .profile-item:nth-child(even) { padding-right: 0; }
+
+      /* 경력/학력 */
+      .exp-grid { grid-template-columns: 1fr; gap: 40px; }
+      .timeline-org { font-size: 15px; }
+      .timeline-date { font-size: 12px; }
+
+      /* 자격증 */
+      .cert-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+      .cert-name { font-size: 14px; }
+      .cert-cell { padding: 20px; }
+
+      /* 수상경력 */
+      .award-item {
+        flex-wrap: wrap;
+        padding: 20px 0;
+      }
+      .award-name { font-size: 13px; }
+
+      /* 스킬 */
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .skill-name { font-size: 17px; }
+
+      /* 프로젝트 */
+      .accordion-title { font-size: clamp(15px, 4vw, 20px); }
+      .tag { font-size: 10px; }
+      .tag-list { flex-wrap: wrap; }
+      .accordion-body-inner { padding: 16px 0; }
+
+      /* Footer */
       #footer { padding: 72px 24px 40px; }
-    }
-
-    @media (max-width: 480px) {
-      .skills-grid { grid-template-columns: 1fr; }
+      .footer-sub { font-size: clamp(20px, 5vw, 32px); }
+      .footer-links {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .footer-links .btn-footer { width: 100%; }
     }
   </style>
 </head>
