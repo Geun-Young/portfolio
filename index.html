@@ -210,31 +210,42 @@
       color: var(--color-accent);
     }
 
-    .hero-stats {
+    .hero-profile {
       display: flex;
-      gap: 52px;
+      gap: 0;
       justify-content: center;
+      align-items: stretch;
+      border-top: 1px solid var(--color-border);
+      padding-top: 32px;
       opacity: 0;
       animation: fadeUp 0.5s ease forwards;
       animation-delay: 0.5s;
     }
 
-    .stat-item { text-align: center; }
+    .profile-item {
+      text-align: center;
+      padding: 0 48px;
+      border-right: 1px solid var(--color-border);
+    }
 
-    .stat-num {
+    .profile-item:first-child { padding-left: 0; }
+    .profile-item:last-child  { padding-right: 0; border-right: none; }
+
+    .profile-label {
       display: block;
-      font-size: 36px;
-      font-weight: 800;
-      color: var(--color-text);
-      line-height: 1;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--color-text-hint);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       margin-bottom: 6px;
     }
 
-    .stat-label {
-      font-size: 12px;
-      font-weight: 400;
-      color: var(--color-text-hint);
-      letter-spacing: 0.06em;
+    .profile-value {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text);
     }
 
     .hero-scroll {
@@ -334,7 +345,7 @@
     .timeline-item:hover .timeline-date { color: var(--color-accent); }
 
     .timeline-org {
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 800;
       color: var(--color-text);
       margin-bottom: 3px;
@@ -374,7 +385,7 @@
     }
 
     .cert-name {
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 800;
       color: var(--color-text);
       line-height: 1.35;
@@ -418,7 +429,7 @@
     }
 
     .award-name {
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 400;
       color: var(--color-text);
       transition: color 0.2s ease;
@@ -441,14 +452,14 @@
     }
 
     .skill-name {
-      font-size: 18px;
+      font-size: 21px;
       font-weight: 800;
       color: var(--color-text);
       margin-bottom: 8px;
     }
 
     .skill-desc {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 400;
       color: var(--color-text-hint);
       line-height: 1.6;
@@ -594,6 +605,45 @@
       color: var(--color-text-sub);
     }
 
+    /* ── LIGHTBOX ── */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .lightbox-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 28px;
+      font-size: 28px;
+      color: #ffffff;
+      cursor: pointer;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .proj-img { cursor: zoom-in; }
+
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -656,18 +706,22 @@
         <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">프로젝트 보기 →</button>
         <button class="btn-outline" onclick="window.location.href='mailto:rmsdud0511@naver.com'">이메일 →</button>
       </div>
-      <div class="hero-stats">
-        <div class="stat-item">
-          <span class="stat-num">6</span>
-          <span class="stat-label">Projects</span>
+      <div class="hero-profile">
+        <div class="profile-item">
+          <span class="profile-label">Birth</span>
+          <span class="profile-value">2001.05.11</span>
         </div>
-        <div class="stat-item">
-          <span class="stat-num">5</span>
-          <span class="stat-label">Certificates</span>
+        <div class="profile-item">
+          <span class="profile-label">Phone</span>
+          <span class="profile-value">010-2844-5059</span>
         </div>
-        <div class="stat-item">
-          <span class="stat-num">4</span>
-          <span class="stat-label">Awards</span>
+        <div class="profile-item">
+          <span class="profile-label">Email</span>
+          <span class="profile-value">rmsdud0511@naver.com</span>
+        </div>
+        <div class="profile-item">
+          <span class="profile-label">Name</span>
+          <span class="profile-value">오근영</span>
         </div>
       </div>
       <div class="hero-scroll">
@@ -934,6 +988,12 @@
     </div>
   </section>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+    <span class="lightbox-close" onclick="hideLightbox()">×</span>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" onclick="event.stopPropagation()" />
+  </div>
+
   <!-- FOOTER -->
   <footer id="footer">
     <div class="footer-inner reveal">
@@ -976,6 +1036,29 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Lightbox
+    document.querySelectorAll('.proj-img').forEach(img => {
+      img.addEventListener('click', () => {
+        document.getElementById('lightboxImg').src = img.src;
+        document.getElementById('lightboxImg').alt = img.alt;
+        document.getElementById('lightbox').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox(e) {
+      if (e.target === document.getElementById('lightbox')) hideLightbox();
+    }
+
+    function hideLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') hideLightbox();
+    });
 
   </script>
 </body>
