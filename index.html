@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>오근영 — Data Analyst</title>
+  <style>
+    @font-face {
+      font-family: 'Paperlogy';
+      src: url('fonts/Paperlogy-8ExtraBold.ttf') format('truetype');
+      font-weight: 800;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Paperlogy';
+      src: url('fonts/Paperlogy-4Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Paperlogy';
+      src: url('fonts/Paperlogy-5Medium.ttf') format('truetype');
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    :root {
+      --color-bg:        #ffffff;
+      --color-bg-soft:   #f5f5f5;
+      --color-bg-muted:  #efefef;
+      --color-text:      #111111;
+      --color-text-sub:  #555555;
+      --color-text-hint: #999999;
+      --color-border:    #e0e0e0;
+      --color-accent:    #cb4652;
+      --color-accent-bg: rgba(203, 70, 82, 0.07);
+      --font-display: 'Paperlogy', sans-serif;
+      --font-body:    'Paperlogy', sans-serif;
+      --radius-pill:    32px;
+      --radius-pill-lg: 40px;
+      --radius-card:    0px;
+      --radius-sm:      4px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav-logo {
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-sub);
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover { color: var(--color-text); }
+
+    .btn-nav-contact {
+      font-size: 13px;
+      font-weight: 400;
+      font-family: var(--font-body);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      padding: 7px 18px;
+      background: transparent;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn-nav-contact:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      background: var(--color-bg);
+    }
+
+    .hero-content { max-width: 780px; }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-text-hint);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+      animation-delay: 0.1s;
+    }
+
+    .hero-title {
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+      margin-bottom: 24px;
+      word-break: keep-all;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+      animation-delay: 0.2s;
+    }
+
+    .hero-title .accent { color: var(--color-accent); }
+
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--color-text-sub);
+      line-height: 1.65;
+      max-width: 520px;
+      margin: 0 auto 40px;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 72px;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+      animation-delay: 0.4s;
+    }
+
+    .btn-primary {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 14px;
+      background: var(--color-accent);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 12px 26px;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-primary:hover { opacity: 0.85; }
+
+    .btn-outline {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 14px;
+      background: transparent;
+      color: var(--color-text-sub);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      padding: 12px 26px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 52px;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+      animation-delay: 0.5s;
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-num {
+      display: block;
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--color-text);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--color-text-hint);
+      letter-spacing: 0.06em;
+    }
+
+    .hero-scroll {
+      margin-top: 56px;
+      display: flex;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+      animation-delay: 0.7s;
+    }
+
+    .scroll-arrow {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: bounce 1.4s ease infinite;
+      color: var(--color-text-hint);
+      font-size: 18px;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
+    }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 100px 48px; }
+
+    .section-inner { max-width: 1000px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+      margin-bottom: 56px;
+      line-height: 1.1;
+    }
+
+    /* reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── EXPERIENCE & EDUCATION ── */
+    #experience { background: var(--color-bg-soft); }
+
+    .exp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+
+    .exp-col-title {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-hint);
+      margin-bottom: 28px;
+    }
+
+    .timeline-item {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--color-border);
+      cursor: default;
+    }
+
+    .timeline-item:first-of-type { padding-top: 0; }
+
+    .timeline-date {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-hint);
+      margin-bottom: 5px;
+      transition: color 0.2s ease;
+    }
+
+    .timeline-item:hover .timeline-date { color: var(--color-accent); }
+
+    .timeline-org {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--color-text);
+      margin-bottom: 3px;
+    }
+
+    .timeline-role {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--color-text-sub);
+    }
+
+    /* ── CERTIFICATES ── */
+    #certificates { background: var(--color-bg); }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      border-top: 1px solid var(--color-border);
+      border-left: 1px solid var(--color-border);
+    }
+
+    .cert-cell {
+      padding: 28px;
+      border-right: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      transition: background 0.2s ease;
+      cursor: default;
+    }
+
+    .cert-cell:hover { background: var(--color-bg-soft); }
+
+    .cert-year {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--color-text-hint);
+      margin-bottom: 8px;
+    }
+
+    .cert-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--color-text);
+      line-height: 1.35;
+    }
+
+    /* ── AWARDS ── */
+    #awards { background: var(--color-bg-soft); }
+
+    .award-list { list-style: none; }
+
+    .award-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--color-border);
+      transition: padding-left 0.25s ease;
+      cursor: default;
+    }
+
+    .award-item:first-child { border-top: 1px solid var(--color-border); }
+
+    .award-item:hover { padding-left: 8px; }
+    .award-item:hover .award-name { color: var(--color-accent); }
+
+    .award-year {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--color-text-hint);
+      min-width: 56px;
+    }
+
+    .award-badge {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--color-accent);
+      border: 1px solid var(--color-accent);
+      border-radius: var(--radius-pill);
+      padding: 3px 10px;
+      white-space: nowrap;
+    }
+
+    .award-name {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--color-text);
+      transition: color 0.2s ease;
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--color-bg); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .skill-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      margin: -1px 0 0 -1px;
+    }
+
+    .skill-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--color-text);
+      margin-bottom: 8px;
+    }
+
+    .skill-desc {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--color-text-hint);
+      line-height: 1.6;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--color-bg-soft); }
+
+    .accordion-item {
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .accordion-item:first-child { border-top: 1px solid var(--color-border); }
+
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 24px 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .accordion-num {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-hint);
+      min-width: 28px;
+    }
+
+    .accordion-title-wrap { flex: 1; }
+
+    .accordion-title {
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 800;
+      color: var(--color-text);
+      margin-bottom: 10px;
+      transition: color 0.2s ease;
+      line-height: 1.2;
+      word-break: keep-all;
+    }
+
+    .accordion-header:hover .accordion-title { color: var(--color-accent); }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-sub);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      padding: 3px 10px;
+    }
+
+    .accordion-toggle {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      line-height: 1;
+      color: var(--color-text-sub);
+      transition: transform 0.3s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .accordion-item.open .accordion-toggle {
+      transform: rotate(45deg);
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .accordion-body-inner {
+      background: var(--color-bg);
+      padding: 28px 52px 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 48px;
+    }
+
+    .proj-label {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--color-accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .proj-text {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-text-sub);
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    #footer {
+      background: var(--color-text);
+      padding: 96px 48px 48px;
+      text-align: center;
+    }
+
+    .footer-inner { max-width: 700px; margin: 0 auto; }
+
+    .footer-sub {
+      font-size: clamp(18px, 2.5vw, 28px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      line-height: 1.15;
+      margin-bottom: 44px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+
+    .btn-footer {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 14px;
+      background: transparent;
+      color: #ffffff;
+      border: 1px solid #333333;
+      border-radius: var(--radius-pill);
+      padding: 12px 24px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn-footer:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--color-text-sub);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+
+      section { padding: 80px 24px; }
+
+      #hero { padding: 100px 24px 64px; }
+
+      .hero-stats { gap: 28px; }
+      .stat-num { font-size: 28px; }
+
+      .exp-grid { grid-template-columns: 1fr; gap: 40px; }
+
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+
+      .accordion-body-inner {
+        grid-template-columns: 1fr;
+        padding: 20px 0 28px;
+      }
+
+      #footer { padding: 72px 24px 40px; }
+    }
+
+    @media (max-width: 480px) {
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">오근영</span>
+    <ul class="nav-links">
+      <li><a href="#experience">경력</a></li>
+      <li><a href="#certificates">자격증</a></li>
+      <li><a href="#awards">수상</a></li>
+      <li><a href="#projects">프로젝트</a></li>
+      <li><button class="btn-nav-contact" onclick="window.location.href='mailto:rmsdud0511@naver.com'">연락하기</button></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Data Analyst · 오근영</p>
+      <h1 class="hero-title">
+        데이터로 성과를 검증하고,<br />
+        <span class="accent">의사결정</span>을 움직이는
+      </h1>
+      <p class="hero-sub">고객 행동 데이터에서 전환의 실마리를 찾고, 그 인사이트가 실제 성장으로 이어지는 분석을 합니다.</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">프로젝트 보기 →</button>
+        <button class="btn-outline" onclick="window.location.href='mailto:rmsdud0511@naver.com'">이메일 →</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">6</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">5</span>
+          <span class="stat-label">Certificates</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">4</span>
+          <span class="stat-label">Awards</span>
+        </div>
+      </div>
+      <div class="hero-scroll">
+        <span class="scroll-arrow">↓</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE & EDUCATION -->
+  <section id="experience">
+    <div class="section-inner">
+      <p class="section-label reveal">Background</p>
+      <h2 class="section-title reveal">경력 및 학력</h2>
+      <div class="exp-grid reveal">
+        <div>
+          <p class="exp-col-title">Experience</p>
+          <div class="timeline-item">
+            <p class="timeline-date">2025.01 — 2026.01</p>
+            <p class="timeline-org">카카오페이 마케팅비즈파트</p>
+            <p class="timeline-role">인턴</p>
+          </div>
+          <div class="timeline-item">
+            <p class="timeline-date">2024.06 — 2024.09</p>
+            <p class="timeline-org">LG전자 DX School</p>
+            <p class="timeline-role">참여</p>
+          </div>
+          <div class="timeline-item">
+            <p class="timeline-date">2023.01 — 2024.01</p>
+            <p class="timeline-org">데이터마이닝 연구실</p>
+            <p class="timeline-role">학부연구생</p>
+          </div>
+          <div class="timeline-item">
+            <p class="timeline-date">2022.03 — 2022.12</p>
+            <p class="timeline-org">통계 학술 동아리 SCR</p>
+            <p class="timeline-role">멘토</p>
+          </div>
+        </div>
+        <div>
+          <p class="exp-col-title">Education</p>
+          <div class="timeline-item">
+            <p class="timeline-date">2020.03 — 2024.08</p>
+            <p class="timeline-org">고려대학교 세종캠퍼스</p>
+            <p class="timeline-role">빅데이터사이언스학부 졸업</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATES -->
+  <section id="certificates">
+    <div class="section-inner">
+      <p class="section-label reveal">Credentials</p>
+      <h2 class="section-title reveal">자격증</h2>
+      <div class="cert-grid reveal">
+        <div class="cert-cell">
+          <p class="cert-year">2025.07</p>
+          <p class="cert-name">빅데이터분석기사</p>
+        </div>
+        <div class="cert-cell">
+          <p class="cert-year">2023.11</p>
+          <p class="cert-name">데이터 분석 준전문가 (ADsP)</p>
+        </div>
+        <div class="cert-cell">
+          <p class="cert-year">2023.04</p>
+          <p class="cert-name">SQL 개발자 (SQLD)</p>
+        </div>
+        <div class="cert-cell">
+          <p class="cert-year">2023.02</p>
+          <p class="cert-name">SAS Certified Professional: Advanced</p>
+        </div>
+        <div class="cert-cell">
+          <p class="cert-year">2022.07</p>
+          <p class="cert-name">SAS Certified Specialist: Base</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section id="awards">
+    <div class="section-inner">
+      <p class="section-label reveal">Recognition</p>
+      <h2 class="section-title reveal">수상경력</h2>
+      <ul class="award-list reveal">
+        <li class="award-item">
+          <span class="award-year">2023.12</span>
+          <span class="award-badge">수상</span>
+          <span class="award-name">통계 포스터 발표회 빅페스타 우수상</span>
+        </li>
+        <li class="award-item">
+          <span class="award-year">2022.11</span>
+          <span class="award-badge">수상</span>
+          <span class="award-name">빅데이터사이언스학부 통계학술제 최우수상 (팀)</span>
+        </li>
+        <li class="award-item">
+          <span class="award-year">2022.09</span>
+          <span class="award-badge">수상</span>
+          <span class="award-name">빅데이터사이언스학부 통계학술제 최우수상 (개인)</span>
+        </li>
+        <li class="award-item">
+          <span class="award-year">2021.11</span>
+          <span class="award-badge">수상</span>
+          <span class="award-name">충청권역 대학 연합 프레젠테이션 경진대회 우수상</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-inner">
+      <p class="section-label reveal">Technical</p>
+      <h2 class="section-title reveal">스킬</h2>
+      <div class="skills-grid reveal">
+        <div class="skill-card">
+          <p class="skill-name">SQL</p>
+          <p class="skill-desc">대용량 데이터 환경에서 데이터 추출·집계·분석 경험</p>
+        </div>
+        <div class="skill-card">
+          <p class="skill-name">Python</p>
+          <p class="skill-desc">데이터 분석 프로젝트 및 시각화</p>
+        </div>
+        <div class="skill-card">
+          <p class="skill-name">R</p>
+          <p class="skill-desc">통계 분석 및 데이터 시각화 경험</p>
+        </div>
+        <div class="skill-card">
+          <p class="skill-name">SAS</p>
+          <p class="skill-desc">PROC문, SQL문을 사용한 데이터 추출</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-inner">
+      <p class="section-label reveal">Work</p>
+      <h2 class="section-title reveal">프로젝트</h2>
+      <div class="reveal">
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span class="accordion-num">01</span>
+            <div class="accordion-title-wrap">
+              <p class="accordion-title">결제 채널 편중 사용자 대상 CRM 전환 실험</p>
+              <div class="tag-list">
+                <span class="tag">CRM 타겟 설계</span>
+                <span class="tag">세그먼트 타겟팅</span>
+                <span class="tag">전환율 측정</span>
+                <span class="tag">프로모션 ROI</span>
+              </div>
+            </div>
+            <div class="accordion-toggle">+</div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              <div>
+                <p class="proj-label">배경</p>
+                <p class="proj-text">결제 수단은 등록되어 있으나 카카오 계열사에서만 결제하는 Kakao-only 사용자 집단이 다수 존재. 활성도 확장 가능성이 높은 잠재 전환 타겟으로 판단.</p>
+              </div>
+              <div>
+                <p class="proj-label">접근</p>
+                <p class="proj-text">최근 3~6개월 카카오 계열사 전용 결제 이력 기준으로 집단 정의. 편중 기간에 따라 차등 쿠폰 설계 (3개월: 1,000원 / 4~6개월: 3,000원). CRM 발송 후 결제 전환 및 이벤트 이후 추가 결제 발생 여부 추적.</p>
+              </div>
+              <div>
+                <p class="proj-label">결과</p>
+                <p class="proj-text">CRM 메시지 발송 후 유의미한 결제 전환 효과 확인. 결제 이력이 오래된 집단에서 상대적으로 높은 전환 반응 → 차등 혜택 전략 유효성 검증.</p>
+              </div>
+              <div>
+                <p class="proj-label">기여</p>
+                <p class="proj-text">Kakao-only 집단을 핵심 CRM 타겟으로 정의. 이벤트 이후 추가 결제 발생 가맹점 기반 연계 프로모션 기획으로 연결.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span class="accordion-num">02</span>
+            <div class="accordion-title-wrap">
+              <p class="accordion-title">페이어텐션 구독자 활성도 분석 및 콘텐츠 전환 지표 재정의</p>
+              <div class="tag-list">
+                <span class="tag">노출편향</span>
+                <span class="tag">퍼널 지표 설계</span>
+                <span class="tag">전환율 분석</span>
+              </div>
+            </div>
+            <div class="accordion-toggle">+</div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              <div>
+                <p class="proj-label">배경</p>
+                <p class="proj-text">구독 서비스의 활성도 기여 여부 불명확. 기존 CTR 지표로는 노출 편향으로 인해 실제 유저 관심도 측정 불가.</p>
+              </div>
+              <div>
+                <p class="proj-label">접근</p>
+                <p class="proj-text">구독 전후 Pre-Post 분석으로 활성도 인과 효과 검증. 도메인 메뉴 클릭 → 저널 클릭 → CTA 클릭의 3단계 퍼널 전환 지표로 재설계.</p>
+              </div>
+              <div>
+                <p class="proj-label">결과</p>
+                <p class="proj-text">구독자와 비구독자 대비 체류시간·방문빈도·이용 서비스 수 전 항목에서 약 2배 이상 차이 확인. 구독 이후 활성도 추가 증가 → 구독 효과가 행동 변화임을 검증.</p>
+              </div>
+              <div>
+                <p class="proj-label">기여</p>
+                <p class="proj-text">퍼널 전환 지표 재정의로 콘텐츠 메뉴 구성 개편을 위한 데이터 기반 의사결정 근거 제공.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span class="accordion-num">03</span>
+            <div class="accordion-title-wrap">
+              <p class="accordion-title">HD현대중공업 안전포인트 결제 지표 불일치 원인 분석</p>
+              <div class="tag-list">
+                <span class="tag">데이터 적재 오류 발견</span>
+                <span class="tag">지표 정합성 확보</span>
+              </div>
+            </div>
+            <div class="accordion-toggle">+</div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              <div>
+                <p class="proj-label">배경</p>
+                <p class="proj-text">결제팀과 기획팀이 보고하는 포인트 사용 건수가 실제 결제 건 대비 약 3~4배 높게 집계되는 불일치 발생.</p>
+              </div>
+              <div>
+                <p class="proj-label">접근</p>
+                <p class="proj-text">포인트 테이블·결제 테이블 기준 지표 각각 산출 후 수치 비교. 특정 결제 건 약 10건 샘플링하여 단건 단위로 직접 검증 → 포인트 적립 N건이 1회 사용 시 N건으로 중복 산정되는 적재 오류 규명.</p>
+              </div>
+              <div>
+                <p class="proj-label">결과</p>
+                <p class="proj-text">사용자 ID·거래 시점 기준으로 포인트 사용 건을 단일 거래로 집계, 금액은 합산 기준으로 지표 산출 로직 개선. 결제팀·기획팀 간 정합성 확보.</p>
+              </div>
+              <div>
+                <p class="proj-label">기여</p>
+                <p class="proj-text">정정된 분석 결과를 HD현대그룹-카카오페이 MOU 자리에서 공식 활용. 이후 HD현대삼호·HD현대일렉트릭 등 계열사로 제휴 확대 적용.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span class="accordion-num">04</span>
+            <div class="accordion-title-wrap">
+              <p class="accordion-title">굿딜 결제창 '거리순' 정렬 개편 유저 분석</p>
+              <div class="tag-list">
+                <span class="tag">기능 효과 검증</span>
+                <span class="tag">신규 유저 전환</span>
+                <span class="tag">A/B 세그먼트 분석</span>
+              </div>
+            </div>
+            <div class="accordion-toggle">+</div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              <div>
+                <p class="proj-label">배경</p>
+                <p class="proj-text">거리순 정렬 필터 도입 후 실제 결제 행동에 미치는 영향 검증 필요. 로그 데이터 상 거리순·추천순 노출 구분 정보 부재로 분석 기준 신규 정립 필요.</p>
+              </div>
+              <div>
+                <p class="proj-label">접근</p>
+                <p class="proj-text">거리순 필터 클릭 → 바코드 화면 진입 → 브랜드 일치 → 결제 완료 흐름으로 거리순 활용 유저 직접 정의. 기능 효과와 유저 특성 효과를 분리하기 위해 도입 전후 × 신규·기존 유저 4집단으로 설계.</p>
+              </div>
+              <div>
+                <p class="proj-label">결과</p>
+                <p class="proj-text">도입 후 신규 유저의 거리순 필터 이용률이 도입 전 대비 높게 나타남. 거리순 활용 신규 유저의 1인당 TPV가 미활용 대비 약 150% 높게 측정됨.</p>
+              </div>
+              <div>
+                <p class="proj-label">기여</p>
+                <p class="proj-text">거리순 정렬이 신규 유저의 탐색 부담을 완화하고 결제 전환을 촉진하는 기능임을 데이터로 검증.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span class="accordion-num">05</span>
+            <div class="accordion-title-wrap">
+              <p class="accordion-title">이벤트 유입 신규·부활 유저 정의 로직 설계</p>
+              <div class="tag-list">
+                <span class="tag">이벤트 성과 분석</span>
+                <span class="tag">유저 세그먼트 정의</span>
+                <span class="tag">proxy 지표 설계</span>
+              </div>
+            </div>
+            <div class="accordion-toggle">+</div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              <div>
+                <p class="proj-label">배경</p>
+                <p class="proj-text">이벤트 캠페인 성과 측정 시 신규·부활 유저를 정확히 집계하기 어려운 구조적 문제 존재. 다양한 진입 경로로 인해 이벤트 페이지 직접 진입 기준만으로는 실제 이벤트 유입 유저를 온전히 포착 불가.</p>
+              </div>
+              <div>
+                <p class="proj-label">접근</p>
+                <p class="proj-text">로그 데이터 제약을 우회하는 proxy 기준을 직접 설계. 신규 유저: 회원가입 후 10분 내 이벤트 페이지 방문. 부활 유저: 1개월 이상 미접속 후, 첫 방문으로부터 5분 내 이벤트 페이지 접속.</p>
+              </div>
+              <div>
+                <p class="proj-label">결과</p>
+                <p class="proj-text">설계한 유저 정의 로직이 카카오페이 퍼포먼스 마케팅팀의 이벤트 성과 측정 공식 기준으로 채택되어 현재까지 실무에 사용 중.</p>
+              </div>
+              <div>
+                <p class="proj-label">기여</p>
+                <p class="proj-text">데이터 추적 한계 상황에서 분석 기준 자체를 설계하고, 해당 정의가 퍼포먼스팀 공식 로직으로 이어지는 데 기여.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span class="accordion-num">06</span>
+            <div class="accordion-title-wrap">
+              <p class="accordion-title">마케팅 쿠폰 어드민 성과 지표 표준화</p>
+              <div class="tag-list">
+                <span class="tag">다직군 협업</span>
+                <span class="tag">지표 표준화</span>
+                <span class="tag">캠페인 성과 분석</span>
+              </div>
+            </div>
+            <div class="accordion-toggle">+</div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-body-inner">
+              <div>
+                <p class="proj-label">배경</p>
+                <p class="proj-text">부서마다 다른 기준으로 유사 쿠폰 데이터 요청 반복 발생. 같은 지표도 취소 반영 방식 차이로 분석가마다 다르게 해석.</p>
+              </div>
+              <div>
+                <p class="proj-label">접근</p>
+                <p class="proj-text">Jira 누적 요청 분석 및 마케팅·운영·기획 담당자 논의를 통한 공통 지표 파악. 가맹점·쿠폰 ID 단위 매출액·발행·사용 건수 핵심 지표 정의 및 조회 조건·출력 구조 표준화.</p>
+              </div>
+              <div>
+                <p class="proj-label">결과</p>
+                <p class="proj-text">반복 요청 및 지표 해석 차이 구조적 감소. 카카오페이 내부 플랫폼으로 실제 출시 및 전사 활용.</p>
+              </div>
+              <div>
+                <p class="proj-label">기여</p>
+                <p class="proj-text">다직군 요구사항을 단일 기준으로 수렴하는 지표 정의 과정 주도. 캠페인 성과를 반복 풀스캔 없이 빠르게 비교 가능한 환경 구축.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-inner reveal">
+      <p class="footer-sub">데이터로 설득하고, 인사이트로 움직입니다</p>
+      <div class="footer-links">
+        <a href="mailto:rmsdud0511@naver.com" class="btn-footer">rmsdud0511@naver.com</a>
+        <a href="tel:010-2844-5059" class="btn-footer">010-2844-5059</a>
+      </div>
+      <p class="footer-copy">© 2025 오근영. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Accordion
+    function toggleAccordion(header) {
+      const item = header.parentElement;
+      const body = item.querySelector('.accordion-body');
+      const isOpen = item.classList.contains('open');
+
+      document.querySelectorAll('.accordion-item.open').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.accordion-body').style.maxHeight = null;
+      });
+
+      if (!isOpen) {
+        item.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    }
+
+    // IntersectionObserver — reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          entry.target.style.transitionDelay = (i % 4) * 0.08 + 's';
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  </script>
+</body>
+</html>
